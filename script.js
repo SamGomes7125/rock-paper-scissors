@@ -13,4 +13,11 @@ function getComputerChoice() {
 
 
 console.log(getComputerChoice());
+function getHumanChoice() {
+  const userInput = prompt("Choose rock, paper, or scissors:");
+  return userInput.toLowerCase();
+}
+
+
+console.log(getHumanChoice());
 
