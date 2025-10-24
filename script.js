@@ -1,5 +1,6 @@
 let humanScore = 0;
 let computerScore = 0;
+
 function getComputerChoice() {
   const randomNumber = Math.random();
 
@@ -12,43 +13,41 @@ function getComputerChoice() {
   }
 }
 
+
 function playRound(humanChoice, computerChoice) {
   const resultDiv = document.querySelector("#results");
   const scoreDiv = document.querySelector("#score");
 
-  let result = "";
+  let result = ""; // This variable will hold the round's result text
+
   // Determine the result of the round
-    if (humanChoice === computerChoice) {
-      result = `It's a tie! You both chose ${humanChoice}.`;
-    } else if (
-      (humanChoice === "rock" && computerChoice === "scissors") ||
-      (humanChoice === "paper" && computerChoice === "rock") ||
-      (humanChoice === "scissors" && computerChoice === "paper")
-    ) {
-      humanScore++;
-      resultDiv.textContent = `You win this round! ${humanChoice} beats 
-${computerChoice}. 
-      Score — You: ${humanScore} | Computer: ${computerScore}`;
-    } else {
-      computerScore++;
-      resultDiv.textContent = `You lose this round! ${computerChoice} 
-beats ${humanChoice}. 
-}
- // 🧮 Update the score display
-  scoreDiv.textContent = `Score — You: ${humanScore} | Computer: 
-${computerScore}`;
+  if (humanChoice === computerChoice) {
+    result = `It's a tie! You both chose ${humanChoice}.`;
+  } else if (
+    (humanChoice === "rock" && computerChoice === "scissors") ||
+    (humanChoice === "paper" && computerChoice === "rock") ||
+    (humanChoice === "scissors" && computerChoice === "paper")
+  ) {
+    humanScore++;
+    result = `You win this round! ${humanChoice} beats ${computerChoice}.`;
+  } else {
+    computerScore++;
+    result = `You lose this round! ${computerChoice} beats ${humanChoice}.`;
+  }
+  
+
+  // 🧮 Update the score display (now happens *after* logic)
+  scoreDiv.textContent = `Score — You: ${humanScore} | Computer: ${computerScore}`;
+  
+  // Update the result display (now happens *after* logic)
   resultDiv.textContent = result;
 
   // 🏆 Check for winner
   if (humanScore === 5 || computerScore === 5) {
     const winner =
-      humanScore === 5 ? "🎉 You win the game!" : "💻 Computer wins the 
-game!";
-    resultDiv.textContent = winner;
-
-    // Disable buttons after game ends
-    document.querySelectorAll("button").forEach((btn) => (btn.disabled = 
-true));
+      humanScore === 5 ? "🎉 You win the game!" : "💻 Computer wins the game!";
+    resultDiv.textContent = winner; // Display the final winner message
+    document.querySelectorAll(".buttons button").forEach((btn) => (btn.disabled = true));
 
     // Add a "Play Again" button
     const playAgainBtn = document.createElement("button");
@@ -56,28 +55,25 @@ true));
     playAgainBtn.id = "playAgain";
     document.body.appendChild(playAgainBtn);
 
+    // Add event listener for the "Play Again" button
     playAgainBtn.addEventListener("click", () => {
       humanScore = 0;
       computerScore = 0;
       scoreDiv.textContent = "Score — You: 0 | Computer: 0";
       resultDiv.textContent = "Let's play again!";
-      document.querySelectorAll("button").forEach((btn) => (btn.disabled = 
-false));
-      playAgainBtn.remove();
+      document.querySelectorAll(".buttons button").forEach((btn) => (btn.disabled = false));
+      playAgainBtn.remove(); 
     });
   }
 }
+
 
 function handleClick(choice) {
   const computerChoice = getComputerChoice();
   playRound(choice, computerChoice);
 }
 
-document.querySelector("#rock").addEventListener("click", () => 
-handleClick("rock"));
-document.querySelector("#paper").addEventListener("click", () => 
-handleClick("paper"));
-document.querySelector("#scissors").addEventListener("click", () => 
-handleClick("scissors"));
 
-
+document.querySelector("#rock").addEventListener("click", () => handleClick("rock"));
+document.querySelector("#paper").addEventListener("click", () => handleClick("paper"));
+document.querySelector("#scissors").addEventListener("click", () => handleClick("scissors"));
