@@ -31,13 +31,12 @@ function playRound(humanChoice, computerChoice) {
     humanScore++;
     result = `You win this round! ${humanChoice} beats ${computerChoice}.`;
   } else {
-    computerScore++;
-    result = `You lose this round! ${computerChoice} beats ${humanChoice}.`;
-  }
-  
+      computerScore++;
+      result = `You lose this round! ${computerChoice} beats ${humanChoice}.`;
+    }
 
-  // 🧮 Update the score display (now happens *after* logic)
-  scoreDiv.textContent = `Score — You: ${humanScore} | Computer: ${computerScore}`;
+  // 🧮 Update the score display
+  scoreDiv.textContent = `Score — You: ${humanScore} | Computer: ${computerScore}`; // <--- This line is now valid
   
   // Update the result display (now happens *after* logic)
   resultDiv.textContent = result;
