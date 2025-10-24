@@ -1,3 +1,5 @@
+let humanScore = 0;
+let computerScore = 0;
 function getComputerChoice() {
   const randomNumber = Math.random();
 
@@ -15,10 +17,7 @@ function getHumanChoice() {
   return userInput.toLowerCase();
 }
 
-function playGame() {
-  let humanScore = 0;
-  let computerScore = 0;
-  function playRound(humanChoice, computerChoice) {
+function playRound(humanChoice, computerChoice) {
   // Make human input case-insensitive
     humanChoice = humanChoice.toLowerCase();
 
@@ -39,26 +38,14 @@ function playGame() {
       console.log(`Score — You: ${humanScore}, Computer: 
 ${computerScore}`);
   }
-    for (let i = 1; i <= 5; i++) {
-      console.log(`\nRound ${i}`);
-      const humanChoice = getHumanChoice();
-      const computerChoice = getComputerChoice();
-      playRound(humanChoice, computerChoice);
-   }
-   // Final results
-    console.log("\nFinal Results:");
-    if (humanScore > computerScore) {
-      console.log(`You win the game! 🎉 Final Score: ${humanScore} - 
-${computerScore}`);
-    } else if (computerScore > humanScore) {
-      console.log(`You lose the game 😢 Final Score: ${humanScore} - 
-${computerScore}`);
-    } else {
-      console.log(`It's a draw! 🤝 Final Score: ${humanScore} - 
-${computerScore}`);
-  }
-}
-// Start the game
-playGame();
-   
+// 🎮 Add event listeners to buttons
+const buttons = document.querySelectorAll("button");
+
+buttons.forEach((button) => {
+  button.addEventListener("click", () => {
+    const humanChoice = button.id;
+    const computerChoice = getComputerChoice();
+    playRound(humanChoice, computerChoice);
+  });
+});    
 
